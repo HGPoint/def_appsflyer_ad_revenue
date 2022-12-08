@@ -1,0 +1,23 @@
+- name: appsflyer_ad_revenue
+  type: table
+  desc: Functions for interacting with Appsflyer Ad Revenue
+  members:
+
+#*****************************************************************************************************
+
+  - name: init
+    type: function
+
+#*****************************************************************************************************
+
+  - name: log_ad_revenue
+    type: function
+
+    parameters:
+      - name: mediation_network_const
+        type: number
+      - name: network
+        type: string
+      - name: revenue
+        type: number
+
