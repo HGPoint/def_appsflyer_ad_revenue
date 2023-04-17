@@ -41,35 +41,46 @@ namespace dmAppsflyerAdRevenue {
             }
             AppsFlyerAdRevenueMediationNetworkType network_type;
 
+
+
+
             switch(mediationNetworkConst){
-                case(MediationNetwork::MN_IRONSOURCE): 
-                    network_type = (AppsFlyerAdRevenueMediationNetworkType) IronSource;
-                    break;
-                case(MediationNetwork::MN_APPLOVINMAX): 
-                    network_type = (AppsFlyerAdRevenueMediationNetworkType) ApplovinMax;
-                    break;
-                case(MediationNetwork::MN_GOOGLEADMOB): 
-                    network_type = (AppsFlyerAdRevenueMediationNetworkType) GoogleAdMob;
-                    break;
-                case(MediationNetwork::MN_FYBER): 
-                    network_type = (AppsFlyerAdRevenueMediationNetworkType) Fyber;
-                    break;
-                case(MediationNetwork::MN_APPODEAL): 
-                    network_type = (AppsFlyerAdRevenueMediationNetworkType) Appodeal;
-                    break;
-                case(MediationNetwork::MN_ADMOST): 
-                    network_type = (AppsFlyerAdRevenueMediationNetworkType) Admost;
-                    break;
-                case(MediationNetwork::MN_TOPON): 
-                    network_type = (AppsFlyerAdRevenueMediationNetworkType) Topon;
-                    break;
-                case(MediationNetwork::MN_TRADPLUS): 
-                    network_type = (AppsFlyerAdRevenueMediationNetworkType) Tradplus;
-                    break;
-                case(MediationNetwork::MN_YANDEX): 
-                    network_type = (AppsFlyerAdRevenueMediationNetworkType) Yandex;
-                    break;
-                default:
+                    case(MediationNetwork::MN_IRONSOURCE):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType)IronSource ;
+                        break;
+                    case(MediationNetwork::MN_APPLOVINMAX):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) ApplovinMax;
+                        break;
+                    case(MediationNetwork::MN_GOOGLEADMOB):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) GoogleAdMob;
+                        break;
+                    case(MediationNetwork::MN_FYBER):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) Fyber;
+                        break;
+                    case(MediationNetwork::MN_APPODEAL):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) Appodeal;
+                        break;
+                    case(MediationNetwork::MN_ADMOST):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) Admost;
+                        break;
+                    case(MediationNetwork::MN_TOPON):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) Topon;
+                        break;
+                    case(MediationNetwork::MN_TRADPLUS):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) Tradplus;
+                        break;
+                    case(MediationNetwork::MN_YANDEX):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) Yandex;
+                        break;
+                    case(MediationNetwork::MN_CHARTBOOST):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) ChartBoost;
+                        break;
+                    case(MediationNetwork::MN_UNITY):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) Unity;
+                        break;
+                    case(MediationNetwork::MN_CUSTOMMEDIATION):
+                        network_type = (AppsFlyerAdRevenueMediationNetworkType) Custom;
+                        break;
                     network_type = (AppsFlyerAdRevenueMediationNetworkType) Custom;
                     break;
             }

@@ -18,17 +18,18 @@ public class AppsflyerAdRevenueJNI {
     private static final int REWARDED = 1;
     private static final int INTERSTITIAL = 2;
 
-
     private static final int IRONSOURCE = 1;
     private static final int APPLOVINMAX = 2;
     private static final int GOOGLEADMOB = 3;
-    private static final int MOPUB = 4;
-    private static final int FYBER = 5;
-    private static final int APPODEAL = 6;
-    private static final int ADMOST = 7;
-    private static final int TOPON = 8;
-    private static final int TRADPLUS = 9;
-    private static final int YANDEX = 10;
+    private static final int FYBER = 4;
+    private static final int APPODEAL = 5;
+    private static final int ADMOST = 6;
+    private static final int TOPON = 7;
+    private static final int TRADPLUS = 8;
+    private static final int YANDEX = 9;
+    private static final int CHARTBOOST = 10;
+    private static final int UNITY = 11;
+    private static final int CUSTOMMEDIATION = 12;
 
     private Activity activity;
     private Application application;
@@ -37,14 +38,16 @@ public class AppsflyerAdRevenueJNI {
         this.activity = activity;
         this.application = activity.getApplication();
     }
-    
-    public void Initialize(){
-        AppsFlyerAdRevenue.Builder afRevenueBuilder = new AppsFlyerAdRevenue.Builder(this.application); 
-        AppsFlyerAdRevenue.initialize(afRevenueBuilder.build());    
+
+    public void Initialize() {
+        AppsFlyerAdRevenue.Builder afRevenueBuilder = new AppsFlyerAdRevenue.Builder(this.application);
+        AppsFlyerAdRevenue.initialize(afRevenueBuilder.build());
     }
 
-    public void LogAdRevenue(int adType, int mediationNetworkConst, String network, double revenue, String adUnitId, String placement){
-        AppsFlyerAdNetworkEventType adEventType = adType == 1 ? AppsFlyerAdNetworkEventType.REWARDED : AppsFlyerAdNetworkEventType.INTERSTITIAL;
+    public void LogAdRevenue(int adType, int mediationNetworkConst, String network, double revenue, String adUnitId,
+            String placement) {
+        AppsFlyerAdNetworkEventType adEventType = adType == 1 ? AppsFlyerAdNetworkEventType.REWARDED
+                : AppsFlyerAdNetworkEventType.INTERSTITIAL;
         MediationNetwork mediationNetwork = MediationNetwork.applovinmax;
         switch (mediationNetworkConst) {
             case IRONSOURCE:
@@ -55,9 +58,6 @@ public class AppsflyerAdRevenueJNI {
                 break;
             case GOOGLEADMOB:
                 mediationNetwork = MediationNetwork.googleadmob;
-                break;
-            case MOPUB:
-                mediationNetwork = MediationNetwork.mopub;
                 break;
             case FYBER:
                 mediationNetwork = MediationNetwork.fyber;
@@ -77,6 +77,15 @@ public class AppsflyerAdRevenueJNI {
             case YANDEX:
                 mediationNetwork = MediationNetwork.Yandex;
                 break;
+            case CHARTBOOST:
+                mediationNetwork = MediationNetwork.chartboost;
+                break;
+            case UNITY:
+                mediationNetwork = MediationNetwork.Unity;
+                break;
+            case CUSTOMMEDIATION:
+                mediationNetwork = MediationNetwork.customMediation;
+                break;
             default:
                 Log.w(TAG, "No mediation network " + String.valueOf(mediationNetworkConst));
         }
@@ -90,7 +99,6 @@ public class AppsflyerAdRevenueJNI {
                 mediationNetwork,
                 Currency.getInstance(Locale.US),
                 revenue,
-                customParams
-        );
+                customParams);
     }
 }
