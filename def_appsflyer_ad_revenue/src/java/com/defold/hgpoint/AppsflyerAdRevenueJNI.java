@@ -4,14 +4,14 @@ import android.util.Log;
 import android.app.Activity;
 import android.app.Application;
 
-import com.appsflyer.adrevenue.adnetworks.AppsFlyerAdNetworkEventType;
-import com.appsflyer.adrevenue.adnetworks.generic.MediationNetwork;
-import com.appsflyer.adrevenue.adnetworks.generic.Scheme;
-import com.appsflyer.adrevenue.AppsFlyerAdRevenue;
+import com.appsflyer.AFAdRevenueData;
+import com.appsflyer.AdRevenueScheme;
+import com.appsflyer.AppsFlyerAdNetworkEventType;
+import com.appsflyer.MediationNetwork;
+import com.appsflyer.AppsFlyerLib;
 
-import java.util.Currency;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.Map;
 
 public class AppsflyerAdRevenueJNI {
     private static final String TAG = "AppsflyerAdRevenue";
@@ -33,72 +33,75 @@ public class AppsflyerAdRevenueJNI {
 
     private Activity activity;
     private Application application;
-
+    AppsFlyerLib appsflyer;
     public AppsflyerAdRevenueJNI(Activity activity) {
         this.activity = activity;
         this.application = activity.getApplication();
     }
 
     public void Initialize() {
-        AppsFlyerAdRevenue.Builder afRevenueBuilder = new AppsFlyerAdRevenue.Builder(this.application);
-        AppsFlyerAdRevenue.initialize(afRevenueBuilder.build());
+        appsflyer = AppsFlyerLib.getInstance();
     }
 
     public void LogAdRevenue(int adType, int mediationNetworkConst, String network, double revenue, String adUnitId,
-            String placement) {
+                             String placement) {
         AppsFlyerAdNetworkEventType adEventType = adType == 1 ? AppsFlyerAdNetworkEventType.REWARDED
                 : AppsFlyerAdNetworkEventType.INTERSTITIAL;
-        MediationNetwork mediationNetwork = MediationNetwork.applovinmax;
+        MediationNetwork mediationNetwork = MediationNetwork.APPLOVIN_MAX;
         switch (mediationNetworkConst) {
             case IRONSOURCE:
-                mediationNetwork = MediationNetwork.ironsource;
+                mediationNetwork = MediationNetwork.IRONSOURCE;
                 break;
             case APPLOVINMAX:
-                mediationNetwork = MediationNetwork.applovinmax;
+                mediationNetwork = MediationNetwork.APPLOVIN_MAX;
                 break;
             case GOOGLEADMOB:
-                mediationNetwork = MediationNetwork.googleadmob;
+                mediationNetwork = MediationNetwork.GOOGLE_ADMOB;
                 break;
             case FYBER:
-                mediationNetwork = MediationNetwork.fyber;
+                mediationNetwork = MediationNetwork.FYBER;
                 break;
             case APPODEAL:
-                mediationNetwork = MediationNetwork.appodeal;
+                mediationNetwork = MediationNetwork.APPODEAL;
                 break;
             case ADMOST:
-                mediationNetwork = MediationNetwork.Admost;
+                mediationNetwork = MediationNetwork.ADMOST;
                 break;
             case TOPON:
-                mediationNetwork = MediationNetwork.Topon;
+                mediationNetwork = MediationNetwork.TOPON;
                 break;
             case TRADPLUS:
-                mediationNetwork = MediationNetwork.Tradplus;
+                mediationNetwork = MediationNetwork.TRADPLUS;
                 break;
             case YANDEX:
-                mediationNetwork = MediationNetwork.Yandex;
+                mediationNetwork = MediationNetwork.YANDEX;
                 break;
             case CHARTBOOST:
-                mediationNetwork = MediationNetwork.chartboost;
+                mediationNetwork = MediationNetwork.CHARTBOOST;
                 break;
             case UNITY:
-                mediationNetwork = MediationNetwork.Unity;
+                mediationNetwork = MediationNetwork.UNITY;
                 break;
             case CUSTOMMEDIATION:
-                mediationNetwork = MediationNetwork.customMediation;
+                mediationNetwork = MediationNetwork.CUSTOM_MEDIATION;
                 break;
             default:
                 Log.w(TAG, "No mediation network " + String.valueOf(mediationNetworkConst));
         }
 
-        HashMap<String, String> customParams = new HashMap<>();
-        customParams.put(Scheme.AD_TYPE, adEventType.toString());
-        customParams.put(Scheme.AD_UNIT, adUnitId);
-        customParams.put(Scheme.PLACEMENT, placement);
-        AppsFlyerAdRevenue.logAdRevenue(
-                network,
-                mediationNetwork,
-                Currency.getInstance(Locale.US),
-                revenue,
-                customParams);
+
+        AFAdRevenueData adRevenueData = new AFAdRevenueData(
+                network,       // monetizationNetwork
+                mediationNetwork, // mediationNetwork
+                "USD",           // currencyIso4217Code
+                revenue       // revenue
+        );
+
+        Map<String, Object> additionalParameters = new HashMap<>();
+        additionalParameters.put(AdRevenueScheme.AD_UNIT, adUnitId);
+        additionalParameters.put(AdRevenueScheme.AD_TYPE, adEventType.toString());
+        additionalParameters.put(AdRevenueScheme.PLACEMENT, placement);
+
+        appsflyer.logAdRevenue(adRevenueData, additionalParameters);
     }
 }

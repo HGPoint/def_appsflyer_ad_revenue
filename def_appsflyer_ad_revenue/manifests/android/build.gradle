@@ -1,3 +1,0 @@
-dependencies {
-    implementation 'com.appsflyer:adrevenue:6.9.1'
-}
